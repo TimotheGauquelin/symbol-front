@@ -27,7 +27,6 @@ const ApologyPage = () => {
       .then((response) => {
         if (response.status === 200) {
           setApology(response.data);
-          setRefresh(false);
         }
       })
       .catch((error) => {
@@ -51,6 +50,7 @@ const ApologyPage = () => {
           <h1 className="">Dev's Apology # {apologyHttpCodeFromPathname}</h1>
           <ApologyMessage
             refresh={refresh}
+            setRefresh={setRefresh}
             apology={apology}
             getApology={() => getApologyByHttpCode()}
           />

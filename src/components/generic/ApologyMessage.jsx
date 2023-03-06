@@ -1,9 +1,10 @@
 import React, { useEffect } from "react";
 import Loader from "./Loader";
 
-const ApologyMessage = ({ refresh, apology, getApology }) => {
+const ApologyMessage = ({ refresh, apology, getApology, setRefresh }) => {
   useEffect(() => {
     getApology();
+    setRefresh(false);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
