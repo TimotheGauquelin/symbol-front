@@ -15,6 +15,7 @@ const FormikSelectInput = ({
           setFieldValue(name, { label: e.target.value });
         }}
       >
+        <option value="">--- Chose a type of apology ---</option>
         {dataArray &&
           dataArray.map((op, index) => (
             <option key={index} value={op.label}>
