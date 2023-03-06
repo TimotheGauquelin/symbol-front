@@ -30,25 +30,31 @@ const HomePage = () => {
 
   return (
     <div className="app_bg relative">
-      <h1 className="">Dev's Apologies</h1>
-      <ApologyMessage
-        refresh={refresh}
-        setRefresh={setRefresh}
-        apology={apology}
-        getApology={() => getRandomApology()}
-      />
-      <Button
-        textButton="Generate Random Apology"
-        action={() => {
-          setRefresh(true);
-        }}
-      />
-      <button
-        className="bg-blue-300 p-3 rounded text-md"
-        onClick={() => setModal(true)}
-      >
-        New
-      </button>
+      <h1 className="fade-in-text">Dev's Apologies</h1>
+      <div className="move-top">
+        <ApologyMessage
+          refresh={refresh}
+          setRefresh={setRefresh}
+          apology={apology}
+          getApology={() => getRandomApology()}
+        />
+        <div className="flex justify-center">
+          <Button
+            buttonColor="blue"
+            textButton="Generate Random Apology"
+            action={() => {
+              setRefresh(true);
+            }}
+            refresh={refresh}
+          />
+          <Button
+            buttonColor="green"
+            textButton="New !"
+            action={() => setModal(true)}
+            refresh={refresh}
+          />
+        </div>
+      </div>
       {modal && (
         <div className="absolute w-full h-full flex justify-center items-center">
           <div className="bg-white w-1/2 rounded p-2">

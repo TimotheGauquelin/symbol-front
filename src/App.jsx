@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
+import "./styles/animation.css";
 import ApologyPage from "./pages/ApologyPage";
 import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";

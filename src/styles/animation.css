@@ -1,0 +1,41 @@
+.fade-in-text {
+  animation: fadeIn 2s;
+  -webkit-animation: fadeIn 2s;
+  -moz-animation: fadeIn 2s;
+  -o-animation: fadeIn 2s;
+  -ms-animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+.move-top {
+  position: relative;
+  animation-duration: 4s;
+  animation: moveTop 4s;
+  -webkit-animation: moveTop 4s;
+  -moz-animation: moveTop 4s;
+  -o-animation: moveTop 4s;
+  -ms-animation: moveTop 4s;
+}
+
+@keyframes moveTop {
+  0% {
+    top: 100px;
+    opacity: 0;
+  }
+  50% {
+    top: 100px;
+    opacity: 0;
+  }
+  100% {
+    top: 0px;
+    opacity: 1;
+  }
+}
