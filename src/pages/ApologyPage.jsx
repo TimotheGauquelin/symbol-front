@@ -36,10 +36,12 @@ const ApologyPage = () => {
   };
 
   useEffect(() => {
-    checkIfHttpCodeFromPathnameIsANumber
-      ? getApologyByHttpCode()
-      : setError("Apology HTTP Code can't be a sentence but a number");
-    redirectToAPageAfterFiveSeconds(navigate, URL_FRONT_HOME_PAGE);
+    if (checkIfHttpCodeFromPathnameIsANumber) {
+      getApologyByHttpCode();
+    } else {
+      setError("Apology HTTP Code can't be a sentence but a number");
+      redirectToAPageAfterFiveSeconds(navigate, URL_FRONT_HOME_PAGE);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
