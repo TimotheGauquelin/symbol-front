@@ -1,13 +1,13 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { redirectToAPageAfterFiveSeconds } from "../constants/genericMethod";
+import { URL_FRONT_HOME_PAGE } from "../constants/urlsFront";
 
 const LostPage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    setTimeout(() => {
-      navigate("/");
-    }, 5000);
+    redirectToAPageAfterFiveSeconds(navigate, URL_FRONT_HOME_PAGE);
   });
 
   return (
