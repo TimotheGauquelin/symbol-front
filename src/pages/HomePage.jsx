@@ -2,11 +2,11 @@ import React, { useState } from "react";
 import Button from "../components/generic/Button";
 import Message from "../components/generic/Message";
 
-const Home = () => {
+const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
 
   return (
-    <div className="App-header">
+    <div className="app_bg">
       <h1 className="">Dev's Apologies</h1>
       <Message refresh={refresh} setRefresh={setRefresh} />
       <Button
@@ -19,4 +19,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default HomePage;
