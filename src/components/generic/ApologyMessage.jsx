@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
+import { delayedActionBetweenOneAndFiveSeconds } from "../../constants/genericMethod";
 import Loader from "./Loader";
 
 const ApologyMessage = ({ refresh, apology, getApology, setRefresh }) => {
   useEffect(() => {
     getApology();
-    setRefresh(false);
+    delayedActionBetweenOneAndFiveSeconds(() => setRefresh(false));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
