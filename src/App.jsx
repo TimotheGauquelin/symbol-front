@@ -1,10 +1,4 @@
-import {
-  BrowserRouter,
-  matchPath,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import "./App.css";
 import ApologyPage from "./pages/ApologyPage";
 import ErrorPage from "./pages/ErrorPage";

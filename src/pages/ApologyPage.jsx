@@ -4,7 +4,7 @@ import api_base from "../api/api_base";
 import ApologyMessage from "../components/generic/ApologyMessage";
 import ErrorMessage from "../components/generic/ErrorMessage";
 import { redirectToAPageAfterFiveSeconds } from "../constants/genericMethod";
-import { URL_BACK_GET_APOLOGY_BY_ID } from "../constants/urlsBack";
+import { URL_BACK_GET_APOLOGY_BY_HTTP_CODE } from "../constants/urlsBack";
 import { URL_FRONT_HOME_PAGE } from "../constants/urlsFront";
 
 const ApologyPage = () => {
@@ -13,13 +13,17 @@ const ApologyPage = () => {
   const [error, setError] = useState("");
 
   const location = useLocation();
-  const apologyIdFromPathname = Number(location.pathname.replace("/", ""));
-  const checkIfIdFromPathnameIsANumber = Number.isFinite(apologyIdFromPathname);
+  const apologyHttpCodeFromPathname = Number(
+    location.pathname.replace("/", "")
+  );
+  const checkIfHttpCodeFromPathnameIsANumber = Number.isFinite(
+    apologyHttpCodeFromPathname
+  );
   const navigate = useNavigate();
 
-  const getApologyById = () => {
+  const getApologyByHttpCode = () => {
     api_base
-      .get(URL_BACK_GET_APOLOGY_BY_ID(apologyIdFromPathname))
+      .get(URL_BACK_GET_APOLOGY_BY_HTTP_CODE(apologyHttpCodeFromPathname))
       .then((response) => {
         if (response.status === 200) {
           setApology(response.data);
@@ -33,22 +37,22 @@ const ApologyPage = () => {
   };
 
   useEffect(() => {
-    checkIfIdFromPathnameIsANumber
-      ? getApologyById()
-      : setError("Apology id can't be a sentence but a number");
+    checkIfHttpCodeFromPathnameIsANumber
+      ? getApologyByHttpCode()
+      : setError("Apology HTTP Code can't be a sentence but a number");
     redirectToAPageAfterFiveSeconds(navigate, URL_FRONT_HOME_PAGE);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh]);
 
   return (
     <div className="app_bg">
-      {!error && checkIfIdFromPathnameIsANumber ? (
+      {!error && checkIfHttpCodeFromPathnameIsANumber ? (
         <div>
-          <h1 className="">Dev's Apology # {apologyIdFromPathname}</h1>
+          <h1 className="">Dev's Apology # {apologyHttpCodeFromPathname}</h1>
           <ApologyMessage
             refresh={refresh}
             apology={apology}
-            getApology={() => getApologyById()}
+            getApology={() => getApologyByHttpCode()}
           />
         </div>
       ) : (
