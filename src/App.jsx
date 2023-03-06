@@ -1,5 +1,13 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {
+  BrowserRouter,
+  matchPath,
+  Route,
+  Routes,
+  useLocation,
+} from "react-router-dom";
 import "./App.css";
+import ApologyPage from "./pages/ApologyPage";
+import ErrorPage from "./pages/ErrorPage";
 import HomePage from "./pages/HomePage";
 import LostPage from "./pages/LostPage";
 
@@ -9,6 +17,8 @@ function App() {
       <Routes>
         <Route path="/" element={<HomePage />} />
         <Route path="/lost" element={<LostPage />} />
+        <Route path="*" element={<ErrorPage />} />
+        <Route path="/:http_code" element={<ApologyPage />} />
       </Routes>
     </BrowserRouter>
   );
