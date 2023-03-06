@@ -3,7 +3,7 @@ import Button from "../components/generic/Button";
 import ApologyMessage from "../components/generic/ApologyMessage";
 import api_base from "../api/api_base";
 import { URL_BACK_GET_ALL_APOLOGY } from "../constants/urlsBack";
-import { Field, Formik, Form } from "formik";
+import ApologyForm from "../components/page-components/homepage-components/ApologyForm";
 
 const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
@@ -51,30 +51,9 @@ const HomePage = () => {
       </button>
       {modal && (
         <div className="absolute w-full h-full flex justify-center items-center">
-          <div className="bg-white h-1/2 w-1/2 rounded p-2">
-            <p className="text-black">Ajouter un composant :</p>
-            <Formik
-              initialValues={{
-                id: null,
-                message: "",
-              }}
-              onSubmit={(values) => console.log(values)}
-            >
-              <Form id="form" className="">
-                <div className="flex flex-col">
-                  <label className="mt-2 font-medium text-black">
-                    Message:{" "}
-                  </label>
-                  <Field
-                    placeholder="Write a message.."
-                    className="mt-2 p-2 bg-gray-100 text-black"
-                    type="text"
-                    name="message"
-                  />
-                </div>
-                <button className="bg-blue-300 p-2 rounded mt-3">Submit</button>
-              </Form>
-            </Formik>
+          <div className="bg-white w-1/2 rounded p-2">
+            <p className="text-black">Create an Apology :</p>
+            <ApologyForm />
           </div>
         </div>
       )}
