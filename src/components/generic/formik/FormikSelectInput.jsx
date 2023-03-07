@@ -8,18 +8,20 @@ const FormikSelectInput = ({
   return (
     <div className="mt-2">
       <select
-        className="text-black p-2 bg-gray-100 rounded"
+        className="text-black p-2 bg-gray-100 rounded w-full"
         id="input-form"
         value={value?.label}
         onChange={(e) => {
           setFieldValue(name, { label: e.target.value });
         }}
       >
-        <option value="">--- Chose a type of apology ---</option>
+        <option value="" disabled hidden>
+          --- Chose a type of apology ---
+        </option>
         {dataArray &&
-          dataArray.map((op, index) => (
-            <option key={index} value={op.label}>
-              {op.label}
+          dataArray?.map((op, index) => (
+            <option key={index} value={op?.label}>
+              {op?.label}
             </option>
           ))}
       </select>
