@@ -1,24 +1,17 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router";
 import api_base from "../../../api/api_base";
+import { apologyInitialValues } from "../../../constants/formikInitialValues";
 import { URL_BACK_GET_ALL_APOLOGY_TAGS } from "../../../constants/urlsBack";
+import { URL_FRONT_APOLOGY_PAGE } from "../../../constants/urlsFront";
+import { apologyValidationSchema } from "../../../constants/yupSchema";
 import FormikSelectInput from "../../generic/formik/FormikSelectInput";
-import * as yup from "yup";
 
 const ApologyForm = () => {
   const [apologyTags, setApologyTags] = useState(false);
 
-  const validationSchema = yup.object().shape({
-    message: yup
-      .string()
-      .required("Message is required")
-      .min(5, "5 characters min.")
-      .max(255, "255 characters max.")
-      .trim(),
-    apologyTag: yup.object().shape({
-      // label: yup.string().required("Is required"),
-    }),
-  });
+  const navigate = useNavigate();
 
   const getAllApologyTags = () => {
     api_base.get(URL_BACK_GET_ALL_APOLOGY_TAGS).then((response) => {
@@ -35,33 +28,33 @@ const ApologyForm = () => {
       apologyTag: values?.apologyTag,
     };
 
-    api_base.post(`/public/apologies`, apologiesSchema).then((response) => {
-      if (response.status === 201) {
-      }
-    });
+    api_base
+      .post(`/public/apologies`, apologiesSchema)
+      .then((response) => {
+        if (response.status === 201) {
+          navigate(URL_FRONT_APOLOGY_PAGE(response?.data?.httpCode));
+        }
+      })
+      .catch((error) => {
+        console.log(error.response.data);
+      });
   };
 
   useEffect(() => {
     getAllApologyTags();
   }, []);
 
-  const initialValues = {
-    id: null,
-    message: "",
-    apologyTag: { label: "" },
-  };
-
   return (
     <Formik
-      initialValues={initialValues}
-      validationSchema={validationSchema}
+      initialValues={apologyInitialValues}
+      validationSchema={apologyValidationSchema}
       onSubmit={(values) => onSubmit(values)}
     >
       <Form id="form" className="">
         <div className="flex flex-col">
           <div className="flex flex-col">
             <label className="mt-2 font-medium text-black">
-              Type of Apology:{" "}
+              Type of Apology: *
             </label>
             <Field
               type="number"
@@ -84,7 +77,9 @@ const ApologyForm = () => {
             <ErrorMessage name="message" className="bg-red-200" />
           </div>
         </div>
-        <button className="bg-blue-300 p-2 rounded mt-3">Submit</button>
+        <button className="bg-blue-300 p-2 rounded mt-3" type="submit">
+          Submit
+        </button>
       </Form>
     </Formik>
   );
