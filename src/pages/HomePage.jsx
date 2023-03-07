@@ -4,6 +4,7 @@ import ApologyMessage from "../components/generic/ApologyMessage";
 import api_base from "../api/api_base";
 import { URL_BACK_GET_ALL_APOLOGY } from "../constants/urlsBack";
 import ApologyForm from "../components/page-components/homepage-components/ApologyForm";
+import { ToastContainer } from "react-toastify";
 
 const HomePage = () => {
   const [refresh, setRefresh] = useState(false);
@@ -40,7 +41,7 @@ const HomePage = () => {
         />
         <div className="flex justify-center">
           <Button
-            buttonColor="blue"
+            color="green"
             textButton="Generate Random Apology"
             action={() => {
               setRefresh(true);
@@ -48,7 +49,7 @@ const HomePage = () => {
             refresh={refresh}
           />
           <Button
-            buttonColor="green"
+            color="orange"
             textButton="New !"
             action={() => setModal(true)}
             refresh={refresh}
@@ -59,10 +60,11 @@ const HomePage = () => {
         <div className="absolute w-full h-full flex justify-center items-center">
           <div className="bg-white w-1/2 rounded p-2">
             <p className="text-black">Create an Apology :</p>
-            <ApologyForm />
+            <ApologyForm cancelModal={() => setModal(false)} />
           </div>
         </div>
       )}
+      <ToastContainer />
     </div>
   );
 };

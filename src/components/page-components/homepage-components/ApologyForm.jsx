@@ -1,14 +1,16 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router";
+import { toast } from "react-toastify";
 import api_base from "../../../api/api_base";
 import { apologyInitialValues } from "../../../constants/formikInitialValues";
 import { URL_BACK_GET_ALL_APOLOGY_TAGS } from "../../../constants/urlsBack";
 import { URL_FRONT_APOLOGY_PAGE } from "../../../constants/urlsFront";
 import { apologyValidationSchema } from "../../../constants/yupSchema";
+import Button from "../../generic/Button";
 import FormikSelectInput from "../../generic/formik/FormikSelectInput";
 
-const ApologyForm = () => {
+const ApologyForm = ({ cancelModal }) => {
   const [apologyTags, setApologyTags] = useState(false);
 
   const navigate = useNavigate();
@@ -36,7 +38,7 @@ const ApologyForm = () => {
         }
       })
       .catch((error) => {
-        console.log(error.response.data);
+        toast.error(error.response.data);
       });
   };
 
@@ -45,43 +47,50 @@ const ApologyForm = () => {
   }, []);
 
   return (
-    <Formik
-      initialValues={apologyInitialValues}
-      validationSchema={apologyValidationSchema}
-      onSubmit={(values) => onSubmit(values)}
-    >
-      <Form id="form" className="">
-        <div className="flex flex-col">
+    <div>
+      <Formik
+        initialValues={apologyInitialValues}
+        validationSchema={apologyValidationSchema}
+        onSubmit={(values) => onSubmit(values)}
+      >
+        <Form id="form" className="">
           <div className="flex flex-col">
-            <label className="mt-2 font-medium text-black">
-              Type of Apology: *
-            </label>
+            <div className="flex flex-col">
+              <label className="mt-2 font-medium text-black">
+                Type of Apology: *
+              </label>
+              <Field
+                type="number"
+                name="apologyTag"
+                dataArray={apologyTags}
+                component={FormikSelectInput}
+              />
+              <div className="text-red-800">
+                <ErrorMessage name="apologyTag" className="bg-red-200" />
+              </div>
+            </div>
+            <label className="mt-2 font-medium text-black">Message: *</label>
             <Field
-              type="number"
-              name="apologyTag"
-              dataArray={apologyTags}
-              component={FormikSelectInput}
+              placeholder="Write a message.."
+              className="mt-2 p-2 bg-gray-100 text-black rounded"
+              type="text"
+              name="message"
             />
             <div className="text-red-800">
-              <ErrorMessage name="apologyTag" className="bg-red-200" />
+              <ErrorMessage name="message" className="bg-red-200" />
             </div>
           </div>
-          <label className="mt-2 font-medium text-black">Message: *</label>
-          <Field
-            placeholder="Write a message.."
-            className="mt-2 p-2 bg-gray-100 text-black rounded"
-            type="text"
-            name="message"
+          <Button type="submit" color="green" textButton="Submit" />
+          <Button
+            color="red"
+            textButton="Cancel"
+            action={() => {
+              cancelModal();
+            }}
           />
-          <div className="text-red-800">
-            <ErrorMessage name="message" className="bg-red-200" />
-          </div>
-        </div>
-        <button className="bg-blue-300 p-2 rounded mt-3" type="submit">
-          Submit
-        </button>
-      </Form>
-    </Formik>
+        </Form>
+      </Formik>
+    </div>
   );
 };
 

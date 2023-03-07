@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import api_base from "../api/api_base";
 import ApologyMessage from "../components/generic/ApologyMessage";
+import Button from "../components/generic/Button";
 import ErrorMessage from "../components/generic/ErrorMessage";
 import { redirectToAPageAfterFiveSeconds } from "../constants/genericMethod";
 import { URL_BACK_GET_APOLOGY_BY_HTTP_CODE } from "../constants/urlsBack";
@@ -13,13 +14,14 @@ const ApologyPage = () => {
   const [error, setError] = useState("");
 
   const location = useLocation();
+  const navigate = useNavigate();
+
   const apologyHttpCodeFromPathname = Number(
     location.pathname.replace("/", "")
   );
   const checkIfHttpCodeFromPathnameIsANumber = Number.isFinite(
     apologyHttpCodeFromPathname
   );
-  const navigate = useNavigate();
 
   const getApologyByHttpCode = () => {
     api_base
@@ -55,6 +57,13 @@ const ApologyPage = () => {
             setRefresh={setRefresh}
             apology={apology}
             getApology={() => getApologyByHttpCode()}
+          />
+          <Button
+            color="green"
+            textButton="Retour à la page d'accueil"
+            action={() => {
+              navigate(URL_FRONT_HOME_PAGE);
+            }}
           />
         </div>
       ) : (
