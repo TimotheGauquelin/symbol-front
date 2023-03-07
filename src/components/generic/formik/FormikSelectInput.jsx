@@ -16,7 +16,7 @@ const FormikSelectInput = ({
         }}
       >
         <option value="" disabled hidden>
-          --- Chose a type of apology ---
+          --- Choose a type of apology ---
         </option>
         {dataArray &&
           dataArray?.map((op, index) => (
